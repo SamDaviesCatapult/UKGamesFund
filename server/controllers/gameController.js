@@ -54,7 +54,7 @@ function addGameToBlockchain(req, res){
             console.log("***")
             console.log(err) } 
             else
-                res.send(game);
+                res.json(game);
             });
          });
 }

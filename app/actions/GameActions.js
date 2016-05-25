@@ -24,5 +24,11 @@ module.exports = {
            game:game,
            type:"game:addContractToGame" 
         });
+    },
+    addGameToBlockchain:function(game){
+      dispatcher.dispatcher({
+        game:game,
+        type:"game:addGameToBlockchain"
+      })
     }
 }

@@ -17,9 +17,15 @@ function GameStore() {
 
     function addGame(game) {
         gameService.addGame(game).then(function (res) {
-            console.log(res);
             triggerListeners();
-            gameService.addGameToBlockchain(res);
+            gameService.addGameToBlockchain(res).then(function(res){
+            triggerListeners();
+        });    
+        });
+    }
+
+    function addGameToBlockchain(game){
+        gameService.addGameToBlockchain(res).then(function(res){
             triggerListeners();
         });
     }

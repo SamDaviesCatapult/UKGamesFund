@@ -94,7 +94,7 @@ var myContract;
             data: compiledGameCode
         });
         gasEstimation = gasEstimation;
-        console.log(gasEstimation);
+        // console.log(gasEstimation);
         var newGame = web3.eth.contract(compiledGameAbi);
         var newGameContract = newGame.new([100, "GameName", "gm", 10, primaryAddress], 
                     {from: primaryAddress, 
@@ -103,10 +103,40 @@ var myContract;
                         gasPrice: web3.toWei(500, "gwei")
                     }, function(err, newGameContract) {
             if (!err && newGameContract.address)
-                console.log(newGameContract.address);
+                // console.log(newGameContract.address);
                 game.gameAddress = newGameContract.address;
+                game.gameABI = compiledGameAbi;
                 console.log(game);
+                console.log(compiledGameAbi);
                  var Promise = promise.Promise;
+        // return new Promise(function (resolve, reject) {
+        //     $.ajax({
+        //         url: resourceUrl + "/" + game._id,
+        //         data: JSON.stringify(game),
+        //         method: "PUT",
+        //         dataType: "json",
+        //         contentType: "application/json",
+        //         success: resolve,
+        //         error: reject
+        //     });
+
+        // });
+        addGameToBlockchain(game);
+            if(err)
+                console.log(err);
+        });
+        return game
+
+    }
+
+    function addGameToBlockchain(game){
+        // console.log("Game result: "+game)
+        // console.log("calling  game"+game);
+        // callExampleContract(game, function(){
+        //     console.log("Game created");
+        //     console.log(game);
+        // });
+        var Promise = promise.Promise;
         return new Promise(function (resolve, reject) {
             $.ajax({
                 url: resourceUrl + "/" + game._id,
@@ -119,10 +149,7 @@ var myContract;
             });
 
         });
-            if(err)
-                console.log(err);
-        });
-
+        return game;
     }
 
     function callExampleContract(game, _callback) {
@@ -130,30 +157,30 @@ var myContract;
         // addGameSmartContract(game)
         _callback();
     } 
-    function addGameSmartContract(game){
-        var shaObj = new Hash("SHA-1", "TEXT");
-        shaObj.update(Math.random()+"");
-        game.gameAddress = "0x"+shaObj.getHash("HEX");
-        var Promise = promise.Promise;
-                return new Promise(function (resolve, reject) {
-                    $.ajax({
-                        url: resourceUrl + "/" + game._id,
-                        data: JSON.stringify(game),
-                        method: "PUT",
-                        dataType: "json",
-                        contentType: "application/json",
-                        success: resolve,
-                        error: reject
-                    });
-                }); 
-        return game;
-    }
-    function addGameContractSmartContract(game){
-        var shaObj = new Hash("SHA-1", "TEXT");
-        shaObj.update(game.contract+"");
-        game.gameContractHash = "0x"+shaObj.getHash("HEX");
-        return game;
-    }
+    // function addGameSmartContract(game){
+    //     var shaObj = new Hash("SHA-1", "TEXT");
+    //     shaObj.update(Math.random()+"");
+    //     game.gameAddress = "0x"+shaObj.getHash("HEX");
+    //     var Promise = promise.Promise;
+    //             return new Promise(function (resolve, reject) {
+    //                 $.ajax({
+    //                     url: resourceUrl + "/" + game._id,
+    //                     data: JSON.stringify(game),
+    //                     method: "PUT",
+    //                     dataType: "json",
+    //                     contentType: "application/json",
+    //                     success: resolve,
+    //                     error: reject
+    //                 });
+    //             }); 
+    //     return game;
+    // }
+    // function addGameContractSmartContract(game){
+    //     var shaObj = new Hash("SHA-1", "TEXT");
+    //     shaObj.update(game.contract+"");
+    //     game.gameContractHash = "0x"+shaObj.getHash("HEX");
+    //     return game;
+    // }
 
 module.exports = {
     addGame: function (game) {
@@ -212,7 +239,7 @@ module.exports = {
     addContractToGame: function (game) {
         var Promise = promise.Promise;
         game = addGameContractSmartContract(game);
-        console.log(game);
+        // console.log(game);
         return new Promise(function (resolve, reject) {
             $.ajax({
                url: resourceUrl,
@@ -226,11 +253,11 @@ module.exports = {
         });
     },
     addGameToBlockchain: function(game){
-        console.log("Game result: "+game)
-        console.log("calling  game"+game);
+        // console.log("Game result: "+game)
+        // console.log("calling  game"+game);
         callExampleContract(game, function(){
-            console.log("Game created");
-            console.log(game);
+            // console.log("Game created");
+            // console.log(game);
         });
         var Promise = promise.Promise;
         return new Promise(function (resolve, reject) {
